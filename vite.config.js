@@ -8,5 +8,5 @@ export default defineConfig({
     outDir: 'docs',
   },
   plugins: [react(), basicSsl()],
-  base: '/pose-landmarker/',
+  base: '/media-position/',
 })
