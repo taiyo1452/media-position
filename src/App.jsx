@@ -17,6 +17,9 @@ function App() {
   const canvasRef = useRef();
   const ctxRef = useRef();
 
+  const [cameraOK, setCameraOK] = useState(false);
+  const [settingOK, setSettingOK] = useState(false);
+
   useEffect(() => {
     const createPoseLandmarker = async () => {
       const vision = await FilesetResolver.forVisionTasks(
@@ -30,6 +33,8 @@ function App() {
         runningMode: "VIDEO",
         numPoses: 2,
       });
+      setSettingOK(true);
+      console.log("ready to mediapipe");
     };
     createPoseLandmarker();
   }, []);
@@ -68,22 +73,29 @@ function App() {
     <>
       <div>
       <div className="position-relative">
-        <Webcam
-          style={{
-            width: "100%",
-            maxWidth: "800px",
-          }}
-          audio={false}
-          ref={webcam}
-          videoConstraints={{
-            facingMode: "user",
-          }}
-        />
-        <canvas className="position-absolute top-0 start-0" ref={canvasRef} />
+        <Container fluid className='item'>
+          <Webcam
+            style={{
+              width: "100%",
+              maxWidth: "800px",
+              padding: "10px",
+            }}
+            audio={false}
+            ref={webcam}
+            videoConstraints={{
+              facingMode: "user",
+            }}
+            onUserMedia={() => setCameraOK(true)}
+          />
+          <canvas className="position-absolute top-0 start-0" ref={canvasRef} />
+        </Container>
       </div>
-        <Container fluid>
+        <Container fluid className='item'>
           <div>
-            <Button onClick={() => setDetectFlag(true)}>姿勢検出</Button>
+            <Button onClick={() => setDetectFlag(true)}
+                    disabled={!cameraOK && !settingOK}
+                    className="m-2"
+            >姿勢検出</Button>
           </div>
         </Container>
       </div>
