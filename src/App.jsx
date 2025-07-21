@@ -73,7 +73,8 @@ function App() {
     <>
       <div>
       <div className="position-relative">
-        <Container fluid className='item'>
+        <Container fluid>
+          {/* // className='item' */}
           <Webcam
             style={{
               width: "100%",
@@ -90,7 +91,8 @@ function App() {
           <canvas className="position-absolute top-0 start-0" ref={canvasRef} />
         </Container>
       </div>
-        <Container fluid className='item'>
+        <Container fluid>
+          {/* // className='item' */}
           <div>
             <Button onClick={() => setDetectFlag(true)}
                     disabled={!cameraOK && !settingOK}
@@ -104,3 +106,6 @@ function App() {
 }
 
 export default App
+
+
+// TODO styleを当ててmediapipeを表示させる
