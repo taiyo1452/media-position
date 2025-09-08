@@ -9,6 +9,8 @@ import {
   DrawingUtils,
 } from "@mediapipe/tasks-vision"
 
+import * as kalidokit from "kalidokit";
+
 function App() {
   const webcam = useRef();
   const [detectFlag, setDetectFlag] = useState(false);
@@ -46,6 +48,7 @@ function App() {
       webcam.current.video,
       startTime,
       (result) => {
+        console.log(result.landmarks);
         for (const landmark of result.landmarks) {
           drawingUtils.current.drawLandmarks(landmark, {
             radius: (data) => DrawingUtils.lerp(data.from.z, -0.15, 0.1, 5, 1)
@@ -98,6 +101,10 @@ function App() {
                     disabled={!cameraOK && !settingOK}
                     className="m-2"
             >姿勢検出</Button>
+            <Button onClick={() => setDetectFlag(false)}
+                    disabled={!detectFlag}
+                    className="m-2"
+            >検出停止</Button>
           </div>
         </Container>
       </div>
@@ -109,3 +116,5 @@ export default App
 
 
 // TODO styleを当ててmediapipeを表示させる
+
+// TODO setDetectFlagを使って検出を停止
