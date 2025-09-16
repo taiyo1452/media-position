@@ -72,6 +72,8 @@ function App() {
     }
   }, [detectFlag]);
 
+  
+
   return (
     <>
       <div>
